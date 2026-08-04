@@ -11,6 +11,7 @@ RESTful API for product management. Learning project built with FastAPI, SQLAlch
 - Auto-generated Swagger UI documentation
 - Enum-based product categories with type safety
 - Containerized with Docker for consistent deployment
+- Automated code linting and formatting with Ruff (via GitHub Actions)
 
 ## Tech Stack
 
@@ -20,20 +21,27 @@ RESTful API for product management. Learning project built with FastAPI, SQLAlch
 - **Pydantic** v2 - data validation
 - **SQLite** - database (development)
 - **Uvicorn** - ASGI server
-- **Docker** - containerization
+- **Docker** & **Docker Compose** - containerization
+- **Ruff** - linter and code formatter
+- **GitHub Actions** - CI/CD pipeline
 
 ## Project Structure
 
     shopping/
-    ├── main.py              # FastAPI app and endpoints
-    ├── database.py          # Engine, SessionLocal, get_db dependency
-    ├── models.py            # SQLAlchemy Product model
-    ├── schemas.py           # Pydantic schemas (Create/Update/Read)
-    ├── enums.py             # ProductCategory enum
-    ├── requirements.txt     # Python dependencies
-    ├── Dockerfile           # Container definition
+    ├── .github/
+    │   └── workflows/
+    │       └── ruff.yml         # GitHub Actions workflow for linting
+    ├── main.py                  # FastAPI app and endpoints
+    ├── database.py              # Engine, SessionLocal, get_db dependency
+    ├── models.py                # SQLAlchemy Product model
+    ├── schemas.py               # Pydantic schemas (Create/Update/Read)
+    ├── enums.py                 # ProductCategory enum
+    ├── requirements.txt         # Python dependencies
+    ├── Dockerfile               # Container definition
+    ├── docker-compose.yml       # Multi-container orchestration with live reload
+    ├── ruff.toml                # Ruff configuration
     ├── .gitignore
-    └── shop.db              # SQLite database (auto-created, not committed)
+    └── shop.db                  # SQLite database (auto-created, not committed)
 
 ## Setup
 
@@ -53,12 +61,31 @@ Open Swagger UI: `http://localhost:8000/docs`
 
 ### Docker
 
+Simple run:
+
 ```bash
 docker build -t shop-api .
 docker run -p 8000:8000 shop-api
 ```
 
+With Docker Compose (live reload):
+
+```bash
+docker-compose up
+```
+
 Then open `http://localhost:8000/docs`.
+
+## Code Quality
+
+Format and lint code with Ruff:
+
+```bash
+ruff format .
+ruff check . --fix
+```
+
+All pushes to `main` are automatically checked via GitHub Actions.
 
 ## API Endpoints
 
