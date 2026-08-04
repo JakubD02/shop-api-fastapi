@@ -1,7 +1,10 @@
 from datetime import datetime
 from decimal import Decimal
+
 from pydantic import BaseModel, ConfigDict, Field
+
 from enums import ProductCategory
+
 
 class ProductBase(BaseModel):
     name: str = Field(min_length=3, max_length=50)

@@ -1,12 +1,12 @@
-from fastapi import Depends, FastAPI, HTTPException, Query
-from schemas import ProductCreate, ProductRead, ProductUpdate
-from database import get_db
-from sqlalchemy.orm import Session
-from sqlalchemy import asc, desc
-import models
-from database import Base, engine
 from typing import Literal
 
+from fastapi import Depends, FastAPI, HTTPException, Query
+from sqlalchemy import asc, desc
+from sqlalchemy.orm import Session
+
+import models
+from database import Base, engine, get_db
+from schemas import ProductCreate, ProductRead, ProductUpdate
 
 Base.metadata.create_all(bind=engine)
 

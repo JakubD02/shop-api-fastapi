@@ -1,5 +1,6 @@
 from enum import Enum
 
+
 class ProductCategory(str, Enum):
     ELECTRONICS = "electronics"
     BOOKS = "books"

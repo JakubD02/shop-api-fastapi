@@ -1,6 +1,7 @@
-from sqlalchemy import Boolean, Column, DateTime, Integer, Numeric, String, Text, func, Enum as SqlEnum
+from sqlalchemy import Boolean, Column, DateTime, Integer, Numeric, String, Text, func
+from sqlalchemy import Enum as SqlEnum
+
 from database import Base
-from enum import Enum
 from enums import ProductCategory
 
 
