@@ -11,14 +11,16 @@ from schemas import ProductCreate, ProductRead, ProductUpdate
 Base.metadata.create_all(bind=engine)
 
 app = FastAPI(
-    title = "Simple shop API",
-    description = "RESTful API for product managements.",
+    title="Simple shop API",
+    description="RESTful API for product managements.",
     version="0.1.0",
 )
+
 
 @app.get("/", tags=["default"])
 def root():
     return {"status": "ok"}
+
 
 @app.post("/products/", response_model=ProductRead, status_code=201, tags=["products"])
 def create_product(product: ProductCreate, db: Session = Depends(get_db)):
@@ -28,6 +30,7 @@ def create_product(product: ProductCreate, db: Session = Depends(get_db)):
     db.commit()
     db.refresh(db_product)
     return db_product
+
 
 @app.get("/products/", response_model=list[ProductRead], tags=["products"])
 def list_products(
@@ -60,8 +63,9 @@ def list_products(
         query = query.order_by(asc(sort_column))
     else:
         query = query.order_by(desc(sort_column))
-    
+
     return query.offset(skip).limit(limit).all()
+
 
 @app.get("/products/{product_id}/", response_model=ProductRead, tags=["products"])
 def read_product(product_id: int, db: Session = Depends(get_db)):
@@ -71,10 +75,15 @@ def read_product(product_id: int, db: Session = Depends(get_db)):
         raise HTTPException(status_code=404, detail="Item not found")
     return product
 
-@app.patch("/products/{product_id}/",response_model=ProductRead, tags=["products"])
-def update_product(product_id: int, product_update: ProductUpdate, db: Session = Depends(get_db)):
+
+@app.patch("/products/{product_id}/", response_model=ProductRead, tags=["products"])
+def update_product(
+    product_id: int, product_update: ProductUpdate, db: Session = Depends(get_db)
+):
     """Update a product by ID."""
-    db_product = db.query(models.Product).filter(models.Product.id == product_id).first()
+    db_product = (
+        db.query(models.Product).filter(models.Product.id == product_id).first()
+    )
     if db_product is None:
         raise HTTPException(status_code=404, detail="Item not found")
 
@@ -85,10 +94,13 @@ def update_product(product_id: int, product_update: ProductUpdate, db: Session =
     db.refresh(db_product)
     return db_product
 
+
 @app.delete("/products/{product_id}/", status_code=204, tags=["products"])
 def delete_product(product_id: int, db: Session = Depends(get_db)):
     """Delete a product by ID."""
-    db_product = db.query(models.Product).filter(models.Product.id == product_id).first()
+    db_product = (
+        db.query(models.Product).filter(models.Product.id == product_id).first()
+    )
     if db_product is None:
         raise HTTPException(status_code=404, detail="Item not found")
 
