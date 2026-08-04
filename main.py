@@ -16,9 +16,9 @@ app = FastAPI(
     version="0.1.0",
 )
 
-@app.get("/", tags=["products"])
+@app.get("/", tags=["default"])
 def root():
-    return {"message": "TEST"}
+    return {"status": "ok"}
 
 @app.post("/products/", response_model=ProductRead, status_code=201, tags=["products"])
 def create_product(product: ProductCreate, db: Session = Depends(get_db)):
