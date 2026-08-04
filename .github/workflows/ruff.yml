@@ -13,7 +13,12 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Run Ruff
+      - name: Run Ruff Linter
         uses: astral-sh/ruff-action@v1
         with:
-          args: "check . && ruff format --check ."
+            args: "check ."
+
+      - name: Run Ruff Formatter
+        uses: astral-sh/ruff-action@v1
+        with:
+            args: "format --check ."
