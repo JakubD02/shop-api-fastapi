@@ -23,16 +23,17 @@ RESTful API for product management. Learning project built with FastAPI, SQLAlch
 - **Docker** - containerization
 
 ## Project Structure
-shopping/
-├── main.py # FastAPI app and endpoints
-├── database.py # Engine, SessionLocal, get_db dependency
-├── models.py # SQLAlchemy Product model
-├── schemas.py # Pydantic schemas
-├── enums.py # ProductCategory enum
-├── requirements.txt # Python dependencies
-├── Dockerfile # Container definition
-├── .gitignore
-└── shop.db # SQLite database (auto-created, not committed)
+
+    shopping/
+    ├── main.py              # FastAPI app and endpoints
+    ├── database.py          # Engine, SessionLocal, get_db dependency
+    ├── models.py            # SQLAlchemy Product model
+    ├── schemas.py           # Pydantic schemas (Create/Update/Read)
+    ├── enums.py             # ProductCategory enum
+    ├── requirements.txt     # Python dependencies
+    ├── Dockerfile           # Container definition
+    ├── .gitignore
+    └── shop.db              # SQLite database (auto-created, not committed)
 
 ## Setup
 
