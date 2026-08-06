@@ -1,6 +1,6 @@
 # Simple Shop API
 
-RESTful API for product management. Learning project built with FastAPI, SQLAlchemy 2.0, and Pydantic v2, containerized with Docker.
+RESTful API for product management. Learning project built with FastAPI, SQLAlchemy 2.0, and Pydantic v2, containerized with Docker, tested with pytest.
 
 ## Features
 
@@ -11,6 +11,7 @@ RESTful API for product management. Learning project built with FastAPI, SQLAlch
 - Auto-generated Swagger UI documentation
 - Enum-based product categories with type safety
 - Containerized with Docker for consistent deployment
+- Unit tests with pytest and fixtures
 - Automated code linting and formatting with Ruff (via GitHub Actions)
 
 ## Tech Stack
@@ -22,6 +23,7 @@ RESTful API for product management. Learning project built with FastAPI, SQLAlch
 - **SQLite** - database (development)
 - **Uvicorn** - ASGI server
 - **Docker** & **Docker Compose** - containerization
+- **pytest** - testing framework
 - **Ruff** - linter and code formatter
 - **GitHub Actions** - CI/CD pipeline
 
@@ -31,7 +33,14 @@ RESTful API for product management. Learning project built with FastAPI, SQLAlch
     ├── .github/
     │   └── workflows/
     │       └── ruff.yml         # GitHub Actions workflow for linting
-    ├── main.py                  # FastAPI app and endpoints
+    ├── routers/
+    │   ├── __init__.py
+    │   └── products.py          # Product endpoints (APIRouter)
+    ├── tests/
+    │   ├── __init__.py
+    │   ├── test_main.py         # Root endpoint tests
+    │   └── test_products.py     # CRUD tests with fixtures
+    ├── main.py                  # FastAPI app setup
     ├── database.py              # Engine, SessionLocal, get_db dependency
     ├── models.py                # SQLAlchemy Product model
     ├── schemas.py               # Pydantic schemas (Create/Update/Read)
@@ -75,6 +84,14 @@ docker-compose up
 ```
 
 Then open `http://localhost:8000/docs`.
+
+## Testing
+
+Run tests with pytest:
+
+```bash
+pytest -v
+```
 
 ## Code Quality
 
